@@ -36,6 +36,7 @@ public class ProjectService {
             var resultProject = projectToBeFound.get();
             return modelMapperUtil.projectConvertToProjectDTO(resultProject);
         } else {
+            log.error("There is no such project");
             throw new ProjectNotFoundException();
         }
     }
@@ -57,6 +58,7 @@ public class ProjectService {
             projectRepository.save(projectResult);
             return modelMapperUtil.projectConvertToProjectDTO(projectResult);
         }else{
+            log.error("There is no such project");
             throw new ProjectNotFoundException();
         }
     }

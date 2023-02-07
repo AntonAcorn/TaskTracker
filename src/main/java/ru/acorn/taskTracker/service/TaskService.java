@@ -1,5 +1,6 @@
 package ru.acorn.taskTracker.service;
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.acorn.taskTracker.dto.TaskDTO;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
+@Log4j
 public class TaskService {
     private final TaskRepository taskRepository;
     private final ProjectRepository projectRepository;
@@ -62,6 +64,7 @@ public class TaskService {
             taskRepository.save(taskResult);
             return modelMapperUtil.taskConvertToTaskDTO(taskResult);
         }else{
+            log.error("There is no such task");
             throw new ProjectNotFoundException();
         }
     }

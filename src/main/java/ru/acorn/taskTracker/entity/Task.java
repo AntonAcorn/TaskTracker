@@ -4,6 +4,8 @@ import lombok.*;
 import ru.acorn.taskTracker.entity.enums.TaskStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -21,17 +23,19 @@ public class Task{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Task name should not be empty")
     private String taskName;
 
-    @NotNull
+    @NotNull(message = "Project status should not be null")
     @Enumerated(EnumType.STRING)
     private TaskStatus taskStatus;
 
-    @NotNull
+    @NotNull(message = "Priority should not be empty")
+    @Min(value = 1, message = "Priority should not be less then 1")
+    @Max(value = 10, message = "Priority should not be more then 10")
     private Integer priority;
 
-    @NotEmpty
+    @NotEmpty(message = "Task description should not be empty")
     private String taskDescription;
 
     @ManyToOne
