@@ -1,9 +1,11 @@
 package ru.acorn.taskTracker.entity;
 
 import lombok.*;
+import ru.acorn.taskTracker.entity.enums.TaskStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "task")
@@ -20,6 +22,12 @@ public class Task {
 
     @NotEmpty
     private String taskName;
+
+    @NotEmpty
+    private TaskStatus taskStatus;
+
+    @NotNull
+    private Integer priority;
 
     @NotEmpty
     private String taskDescription;
