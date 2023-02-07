@@ -1,7 +1,9 @@
 package ru.acorn.taskTracker.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import ru.acorn.taskTracker.entity.Task;
 import ru.acorn.taskTracker.entity.enums.ProjectStatus;
@@ -17,6 +19,8 @@ import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProjectDTO {
     private String name;
 

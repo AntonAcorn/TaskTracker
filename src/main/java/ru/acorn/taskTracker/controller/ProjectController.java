@@ -33,9 +33,9 @@ public class ProjectController {
        return projectService.viewProject(id);
     }
 
-    public ProjectDTO editProjectById(@PathVariable Long id, @RequestBody Project updatedProjectToSave){
-
-       return null;
+    @PatchMapping("/edit/{id}")
+    public ProjectDTO editProjectById(@PathVariable Long id, @RequestBody ProjectDTO updatedProjectToSave){
+        return projectService.editProject(id, updatedProjectToSave);
     }
 
 

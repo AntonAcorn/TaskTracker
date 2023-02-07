@@ -9,11 +9,15 @@ import ru.acorn.taskTracker.entity.Project;
 public class ModelMapperUtil {
     private ModelMapper modelMapper;
 
-    private Project projectDTOConvertToProject(ProjectDTO projectDTO){
+    public ModelMapperUtil() {
+        this.modelMapper = new ModelMapper();
+    }
+
+    public Project projectDTOConvertToProject(ProjectDTO projectDTO){
         return modelMapper.map(projectDTO, Project.class);
     }
 
-    private ProjectDTO projectConvertToProjectDTO(Project project){
+    public ProjectDTO projectConvertToProjectDTO(Project project){
         return modelMapper.map(project, ProjectDTO.class);
     }
 }
