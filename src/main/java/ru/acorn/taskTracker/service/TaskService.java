@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.acorn.taskTracker.dto.TaskDTO;
 import ru.acorn.taskTracker.entity.Task;
-import ru.acorn.taskTracker.exception.EntityNotFoundException;
+import ru.acorn.taskTracker.exception.AppEntityNotFoundException;
 import ru.acorn.taskTracker.repository.ProjectRepository;
 import ru.acorn.taskTracker.repository.TaskRepository;
 import ru.acorn.taskTracker.utils.ModelMapperUtil;
@@ -39,7 +39,7 @@ public class TaskService {
             var resultTask = taskToBeFound.get();
             return modelMapperUtil.taskConvertToTaskDTO(resultTask);
         } else {
-            throw new EntityNotFoundException();
+            throw new AppEntityNotFoundException();
         }
     }
 
@@ -64,7 +64,7 @@ public class TaskService {
             return modelMapperUtil.taskConvertToTaskDTO(taskResult);
         }else{
             log.error("There is no such task");
-            throw new EntityNotFoundException();
+            throw new AppEntityNotFoundException();
         }
     }
 

@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.acorn.taskTracker.dto.ProjectDTO;
 import ru.acorn.taskTracker.entity.Project;
 import ru.acorn.taskTracker.entity.Task;
-import ru.acorn.taskTracker.exception.EntityNotFoundException;
+import ru.acorn.taskTracker.exception.AppEntityNotFoundException;
 import ru.acorn.taskTracker.repository.ProjectRepository;
 import ru.acorn.taskTracker.utils.ModelMapperUtil;
 
@@ -37,7 +37,7 @@ public class ProjectService {
             return modelMapperUtil.projectConvertToProjectDTO(resultProject);
         } else {
             log.error("There is no such project");
-            throw new EntityNotFoundException();
+            throw new AppEntityNotFoundException();
         }
     }
 
@@ -59,7 +59,7 @@ public class ProjectService {
             return modelMapperUtil.projectConvertToProjectDTO(projectResult);
         }else{
             log.error("There is no such project");
-            throw new EntityNotFoundException();
+            throw new AppEntityNotFoundException();
         }
     }
 
@@ -84,7 +84,7 @@ public class ProjectService {
     }
 
     public List<Task> viewAllTasksOfProjectById(Long id){
-       return projectRepository.findById(id).map(Project::getListOfTasks).orElseThrow(EntityNotFoundException::new);
+       return projectRepository.findById(id).map(Project::getListOfTasks).orElseThrow(AppEntityNotFoundException::new);
     }
 
     @Transactional
