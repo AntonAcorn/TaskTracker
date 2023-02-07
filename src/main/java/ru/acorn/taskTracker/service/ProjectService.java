@@ -1,5 +1,6 @@
 package ru.acorn.taskTracker.service;
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.acorn.taskTracker.dto.ProjectDTO;
@@ -7,24 +8,20 @@ import ru.acorn.taskTracker.entity.Project;
 import ru.acorn.taskTracker.entity.Task;
 import ru.acorn.taskTracker.exception.ProjectNotFoundException;
 import ru.acorn.taskTracker.repository.ProjectRepository;
-import ru.acorn.taskTracker.repository.TaskRepository;
 import ru.acorn.taskTracker.utils.ModelMapperUtil;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Log4j
 @Transactional(readOnly = true)
 public class ProjectService {
     private final ProjectRepository projectRepository;
-    private final TaskRepository taskRepository;
     private final ModelMapperUtil modelMapperUtil;
 
     public ProjectService(ProjectRepository projectRepository,
-                          TaskRepository taskRepository,
                           ModelMapperUtil modelMapperUtil) {
         this.projectRepository = projectRepository;
-        this.taskRepository = taskRepository;
         this.modelMapperUtil = modelMapperUtil;
     }
 
