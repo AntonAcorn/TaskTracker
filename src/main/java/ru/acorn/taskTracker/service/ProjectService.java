@@ -66,10 +66,10 @@ public class ProjectService {
         }else{
             throw new ProjectNotFoundException();
         }
-
     }
 
-    public Project viewProjectById(Long id) {
-        return projectRepository.findById(id).orElseThrow(ProjectNotFoundException::new);
+    @Transactional
+    public void deleteProjectById(Long id){
+        projectRepository.deleteById(id);
     }
 }

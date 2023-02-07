@@ -9,6 +9,7 @@ import ru.acorn.taskTracker.dto.ProjectDTO;
 import ru.acorn.taskTracker.entity.Project;
 import ru.acorn.taskTracker.service.ProjectService;
 
+import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 
 @RestController
@@ -38,5 +39,9 @@ public class ProjectController {
         return projectService.editProject(id, updatedProjectToSave);
     }
 
-
+    @DeleteMapping("/{id}")
+    public HttpEntity<?> deleteProject(@PathVariable Long id){
+        projectService.deleteProjectById(id);
+        return ResponseEntity.ok().build();
+    }
 }
