@@ -8,9 +8,6 @@ import ru.acorn.taskTracker.exception.ProjectNotFoundException;
 import ru.acorn.taskTracker.repository.ProjectRepository;
 import ru.acorn.taskTracker.utils.ModelMapperUtil;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-
 @Service
 @Transactional(readOnly = true)
 public class ProjectService {
@@ -22,8 +19,6 @@ public class ProjectService {
         this.projectRepository = projectRepository;
         this.modelMapperUtil = modelMapperUtil;
     }
-
-    // Ability to create / view / edit / delete information about projects
 
     @Transactional
     public void createProject(Project project) {

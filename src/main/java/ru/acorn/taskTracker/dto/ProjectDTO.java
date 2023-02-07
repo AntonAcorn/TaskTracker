@@ -22,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProjectDTO {
+
     private String name;
 
     private LocalDateTime startTimeOfProject;
