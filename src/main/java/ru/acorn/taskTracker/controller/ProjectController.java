@@ -33,5 +33,10 @@ public class ProjectController {
        return projectService.viewProject(id);
     }
 
+    public ProjectDTO editProjectById(@PathVariable Long id, @RequestBody Project updatedProjectToSave){
+
+       return null;
+    }
+
 
 }

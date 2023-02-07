@@ -22,13 +22,13 @@ public class ProjectService {
     // Ability to create / view / edit / delete information about projects
 
     @Transactional
-    public void createProject (Project project){
+    public void createProject(Project project) {
         projectRepository.save(project);
     }
 
-    public ProjectDTO viewProject(Long id){
+    public ProjectDTO viewProject(Long id) {
         Optional<Project> projectToBeFound = projectRepository.findById(id);
-        if(projectToBeFound.isPresent()){
+        if (projectToBeFound.isPresent()) {
             var resultProject = projectToBeFound.get();
             return ProjectDTO.builder()
                     .name(resultProject.getName())
@@ -38,8 +38,31 @@ public class ProjectService {
                     .priority(resultProject.getPriority())
                     .listOfTasks(resultProject.getListOfTasks())
                     .build();
-        }else{
+        } else {
             throw new ProjectNotFoundException();
         }
+    }
+
+    public ProjectDTO editProject(Long id, ProjectDTO projectDTOToReturn) {
+        var projectToBeFoundById = projectRepository.findById(id);
+        if (projectToBeFoundById.isPresent()) {
+            var resultProject = projectToBeFoundById.get();
+            resultProject = Project.builder()
+                    .name(projectDTOToReturn.getName())
+                    .startTimeOfProject(projectDTOToReturn.getStartTimeOfProject())
+                    .completionDate(projectDTOToReturn.getCompletionDate())
+                    .status(projectDTOToReturn.getStatus())
+                    .priority(projectDTOToReturn.getPriority())
+                    .listOfTasks(projectDTOToReturn.getListOfTasks())
+                    .build();
+            projectRepository.save(resultProject);
+
+            return null;
+        }
+        return null;
+    }
+
+    public Project viewProjectById(Long id) {
+        return projectRepository.findById(id).orElseThrow(ProjectNotFoundException::new);
     }
 }
