@@ -33,13 +33,13 @@ public class ProjectController {
     }
 
     @GetMapping()
-    public List<Project> viewAllTasks(){
+    public List<Project> viewAllProjects(){
         return projectService.viewAllProjects();
     }
 
-    @GetMapping("/getTasks/{id}")
-    public List<Task> viewAllTasksOfProjectById(@PathVariable Long id){
-        return projectService.viewAllTasksOfProjectById(id);
+    @GetMapping("/getTasks/{projectId}")
+    public List<Task> viewAllTasksOfProjectById(@PathVariable Long projectId){
+        return projectService.viewAllTasksOfProjectById(projectId);
     }
 
     @PatchMapping("/edit/{id}")
