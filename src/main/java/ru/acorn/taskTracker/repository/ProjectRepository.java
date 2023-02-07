@@ -11,5 +11,6 @@ import java.util.List;
 public interface ProjectRepository extends JpaRepository <Project, Long> {
     List<Project> findAllByNameStartsWith(String startAt);
     List<Project> findAllByNameEndsWith(String endAt);
-    List<Project> findAllByStartTimeOfProjectBetween(LocalDateTime startDate, LocalDateTime endDate);
+    List<Project> findAllByOrderByPriority();
+    List<Project> findAllByOrderByStartTimeOfProject();
 }

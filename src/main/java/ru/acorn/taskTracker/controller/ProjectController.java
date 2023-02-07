@@ -36,14 +36,16 @@ public class ProjectController {
     @GetMapping()
     public List<Project> viewAllProjects(@RequestParam(value = "startAt", required = false) String startAt,
                                          @RequestParam(value = "endWith", required = false) String endWith,
-                                         @RequestParam(value = "startDate", required = false) LocalDateTime startDate,
-                                         @RequestParam(value = "endDate", required = false) LocalDateTime endDate) {
+                                         @RequestParam(value = "priority", required = false) boolean isPriority,
+                                         @RequestParam(value = "startTime", required = false) boolean isStartTime) {
         if (startAt != null) {
             return projectService.viewAllProjectsStartAt(startAt);
         } else if (endWith != null) {
             return projectService.viewAllProjectsEndWith(endWith);
-        } else if (startDate != null && endDate != null) {
-            return projectService.viewAllProjectsByStartTimeOfProjectBetween(startDate, endDate);
+        } else if (isPriority) {
+            return projectService.viewAllByOrderByPriority();
+        } else if(isStartTime){
+            return projectService.findAllByOrderByStartTimeOfProject();
         }
         return projectService.viewAllProjects();
     }

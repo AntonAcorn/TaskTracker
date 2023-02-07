@@ -76,8 +76,12 @@ public class ProjectService {
         return projectRepository.findAllByNameEndsWith(endsWith);
     }
 
-    public List<Project> viewAllProjectsByStartTimeOfProjectBetween(LocalDateTime startDate, LocalDateTime endDate){
-        return projectRepository.findAllByStartTimeOfProjectBetween(startDate, endDate);
+    public List <Project> viewAllByOrderByPriority(){
+        return projectRepository.findAllByOrderByPriority();
+    }
+
+    public List<Project> findAllByOrderByStartTimeOfProject(){
+        return projectRepository.findAllByOrderByStartTimeOfProject();
     }
 
     public List<Task> viewAllTasksOfProjectById(Long id){
