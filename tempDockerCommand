@@ -1,0 +1,1 @@
+$ docker run -d --hostname tasktracker --name tasktracker -p 5433:5432 -e POSTGRES_USER=test -e POSTGRES_PASSWORD=test -e POSTGRES_DB=tasktracker -v tasktracker_data:/var/lib/postgresql/data --restart=unless-stopped postgres:14.5
