@@ -2,10 +2,8 @@ package ru.acorn.taskTracker.controller;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.acorn.taskTracker.dto.TaskDTO;
 import ru.acorn.taskTracker.entity.Task;
 import ru.acorn.taskTracker.service.TaskService;
 
@@ -23,5 +21,15 @@ public class TaskController {
     public HttpEntity<?> createTask (@RequestBody Task task){
         taskService.createTask(task);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}")
+    public TaskDTO viewTaskById (@PathVariable Long id){
+        return taskService.viewTask(id);
+    }
+
+    @PatchMapping("/edit/{id}")
+    public TaskDTO editTaskById(@PathVariable Long id, @RequestBody TaskDTO updatedTaskToSave){
+        return taskService.editTask(id, updatedTaskToSave);
     }
 }
