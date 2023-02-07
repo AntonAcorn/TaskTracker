@@ -4,12 +4,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.acorn.taskTracker.dto.ProjectDTO;
 import ru.acorn.taskTracker.entity.Project;
 import ru.acorn.taskTracker.service.ProjectService;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/project")
@@ -27,4 +27,11 @@ public class ProjectController {
         projectService.createProject(project);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/{id}")
+    public ProjectDTO viewProjectById (@PathVariable Long id){
+       return projectService.viewProject(id);
+    }
+
+
 }

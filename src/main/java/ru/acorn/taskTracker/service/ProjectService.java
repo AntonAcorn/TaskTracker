@@ -2,10 +2,12 @@ package ru.acorn.taskTracker.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.acorn.taskTracker.dto.ProjectDTO;
 import ru.acorn.taskTracker.entity.Project;
 import ru.acorn.taskTracker.exception.ProjectNotFoundException;
 import ru.acorn.taskTracker.repository.ProjectRepository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -24,8 +26,20 @@ public class ProjectService {
         projectRepository.save(project);
     }
 
-    public Project viewProject(Long id){
+    public ProjectDTO viewProject(Long id){
         Optional<Project> projectToBeFound = projectRepository.findById(id);
-        return projectToBeFound.orElseThrow(ProjectNotFoundException::new);
+        if(projectToBeFound.isPresent()){
+            var resultProject = projectToBeFound.get();
+            return ProjectDTO.builder()
+                    .name(resultProject.getName())
+                    .startTimeOfProject(LocalDateTime.now())
+                    .completionDate(resultProject.getCompletionDate())
+                    .status(resultProject.getStatus())
+                    .priority(resultProject.getPriority())
+                    .listOfTasks(resultProject.getListOfTasks())
+                    .build();
+        }else{
+            throw new ProjectNotFoundException();
+        }
     }
 }
