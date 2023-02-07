@@ -24,7 +24,7 @@ public class Task{
     @NotEmpty
     private String taskName;
 
-    @NotEmpty
+    @NotNull
     @Enumerated(EnumType.STRING)
     private TaskStatus taskStatus;
 
@@ -35,6 +35,6 @@ public class Task{
     private String taskDescription;
 
     @ManyToOne
-    @JoinColumn(name = "task_id", referencedColumnName = "id")
+    @JoinColumn(name = "project_id", referencedColumnName = "id")
     private Project project;
 }

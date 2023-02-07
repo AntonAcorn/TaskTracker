@@ -5,18 +5,25 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.acorn.taskTracker.dto.TaskDTO;
 import ru.acorn.taskTracker.entity.Task;
 import ru.acorn.taskTracker.exception.ProjectNotFoundException;
+import ru.acorn.taskTracker.repository.ProjectRepository;
 import ru.acorn.taskTracker.repository.TaskRepository;
 import ru.acorn.taskTracker.utils.ModelMapperUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
 public class TaskService {
     private final TaskRepository taskRepository;
+    private final ProjectRepository projectRepository;
     private final ModelMapperUtil modelMapperUtil;
 
     public TaskService(TaskRepository taskRepository,
+                       ProjectRepository projectRepository,
                        ModelMapperUtil modelMapperUtil) {
         this.taskRepository = taskRepository;
+        this.projectRepository = projectRepository;
         this.modelMapperUtil = modelMapperUtil;
     }
 
@@ -55,8 +62,12 @@ public class TaskService {
         }
     }
 
+    public List<Task> viewAllTasks(){
+        return taskRepository.findAll();
+    }
+
     @Transactional
-    public void deleteProjectById(Long id){
+    public void deleteTaskById(Long id){
         taskRepository.deleteById(id);
     }
 }

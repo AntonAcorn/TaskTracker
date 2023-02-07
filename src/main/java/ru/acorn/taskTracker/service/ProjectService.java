@@ -4,9 +4,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.acorn.taskTracker.dto.ProjectDTO;
 import ru.acorn.taskTracker.entity.Project;
+import ru.acorn.taskTracker.entity.Task;
 import ru.acorn.taskTracker.exception.ProjectNotFoundException;
 import ru.acorn.taskTracker.repository.ProjectRepository;
 import ru.acorn.taskTracker.utils.ModelMapperUtil;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -54,6 +57,10 @@ public class ProjectService {
         }else{
             throw new ProjectNotFoundException();
         }
+    }
+
+    public List<Project> viewAllProjects(){
+        return projectRepository.findAll();
     }
 
     @Transactional

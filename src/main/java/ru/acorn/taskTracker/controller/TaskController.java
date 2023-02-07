@@ -7,6 +7,8 @@ import ru.acorn.taskTracker.dto.TaskDTO;
 import ru.acorn.taskTracker.entity.Task;
 import ru.acorn.taskTracker.service.TaskService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/task")
 public class TaskController {
@@ -31,5 +33,16 @@ public class TaskController {
     @PatchMapping("/edit/{id}")
     public TaskDTO editTaskById(@PathVariable Long id, @RequestBody TaskDTO updatedTaskToSave){
         return taskService.editTask(id, updatedTaskToSave);
+    }
+
+    @GetMapping()
+    public List<Task> viewAllTasks(){
+        return taskService.viewAllTasks();
+    }
+
+    @DeleteMapping("/{id}")
+    public HttpEntity<?> deleteTask(@PathVariable Long id){
+        taskService.deleteTaskById(id);
+        return ResponseEntity.ok().build();
     }
 }
