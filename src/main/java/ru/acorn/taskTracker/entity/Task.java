@@ -21,6 +21,7 @@ public class Task extends BaseIdEntity {
     private String taskName;
 
     @NotEmpty
+    @Enumerated(EnumType.STRING)
     private TaskStatus taskStatus;
 
     @NotNull

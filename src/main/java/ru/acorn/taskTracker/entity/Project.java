@@ -1,6 +1,7 @@
 package ru.acorn.taskTracker.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import ru.acorn.taskTracker.entity.enums.ProjectStatus;
 
 import javax.persistence.*;
@@ -21,13 +22,14 @@ public class Project extends BaseIdEntity{
     @NotEmpty(message = "Name should not be empty")
     private String name;
 
-    @NotNull
+    @CreationTimestamp
     private LocalDateTime startTimeOfProject;
 
     @NotNull
     private LocalDateTime completionDate;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private ProjectStatus status;
 
     @NotNull
