@@ -42,6 +42,10 @@ public class TaskService {
         }
     }
 
+    public List<Task> viewAllTasks(){
+        return taskRepository.findAll();
+    }
+
     @Transactional
     public TaskDTO editTask(Long id, TaskDTO taskDTOToReturn) {
         var taskToBeFoundById = taskRepository.findById(id);
@@ -60,10 +64,6 @@ public class TaskService {
         }else{
             throw new ProjectNotFoundException();
         }
-    }
-
-    public List<Task> viewAllTasks(){
-        return taskRepository.findAll();
     }
 
     @Transactional

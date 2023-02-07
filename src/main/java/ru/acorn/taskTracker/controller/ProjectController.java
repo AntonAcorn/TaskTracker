@@ -37,6 +37,11 @@ public class ProjectController {
         return projectService.viewAllProjects();
     }
 
+    @GetMapping("/getTasks/{id}")
+    public List<Task> viewAllTasksOfProjectById(@PathVariable Long id){
+        return projectService.viewAllTasksOfProjectById(id);
+    }
+
     @PatchMapping("/edit/{id}")
     public ProjectDTO editProjectById(@PathVariable Long id, @RequestBody ProjectDTO updatedProjectToSave){
         return projectService.editProject(id, updatedProjectToSave);

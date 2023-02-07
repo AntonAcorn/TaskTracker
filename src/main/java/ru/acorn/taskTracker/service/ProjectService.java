@@ -7,6 +7,7 @@ import ru.acorn.taskTracker.entity.Project;
 import ru.acorn.taskTracker.entity.Task;
 import ru.acorn.taskTracker.exception.ProjectNotFoundException;
 import ru.acorn.taskTracker.repository.ProjectRepository;
+import ru.acorn.taskTracker.repository.TaskRepository;
 import ru.acorn.taskTracker.utils.ModelMapperUtil;
 
 import java.util.List;
@@ -15,11 +16,14 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class ProjectService {
     private final ProjectRepository projectRepository;
+    private final TaskRepository taskRepository;
     private final ModelMapperUtil modelMapperUtil;
 
     public ProjectService(ProjectRepository projectRepository,
+                          TaskRepository taskRepository,
                           ModelMapperUtil modelMapperUtil) {
         this.projectRepository = projectRepository;
+        this.taskRepository = taskRepository;
         this.modelMapperUtil = modelMapperUtil;
     }
 
@@ -61,6 +65,10 @@ public class ProjectService {
 
     public List<Project> viewAllProjects(){
         return projectRepository.findAll();
+    }
+
+    public List<Task> viewAllTasksOfProjectById(Long id){
+       return projectRepository.findById(id).map(Project::getListOfTasks).orElseThrow(ProjectNotFoundException::new);
     }
 
     @Transactional
