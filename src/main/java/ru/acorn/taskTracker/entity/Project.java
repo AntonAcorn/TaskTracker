@@ -1,5 +1,6 @@
 package ru.acorn.taskTracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -29,9 +30,11 @@ public class Project implements Serializable {
     private String name;
 
     @CreationTimestamp
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime startTimeOfProject;
 
     @NotNull
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime completionDate;
 
     @NotNull

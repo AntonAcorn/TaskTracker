@@ -10,6 +10,7 @@ import ru.acorn.taskTracker.repository.ProjectRepository;
 import ru.acorn.taskTracker.repository.TaskRepository;
 import ru.acorn.taskTracker.utils.ModelMapperUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -65,6 +66,18 @@ public class ProjectService {
 
     public List<Project> viewAllProjects(){
         return projectRepository.findAll();
+    }
+
+    public List<Project> viewAllProjectsStartAt(String startAt){
+        return projectRepository.findAllByNameStartsWith(startAt);
+    }
+
+    public List<Project> viewAllProjectsEndWith(String endsWith){
+        return projectRepository.findAllByNameEndsWith(endsWith);
+    }
+
+    public List<Project> viewAllProjectsByStartTimeOfProjectBetween(LocalDateTime startDate, LocalDateTime endDate){
+        return projectRepository.findAllByStartTimeOfProjectBetween(startDate, endDate);
     }
 
     public List<Task> viewAllTasksOfProjectById(Long id){
