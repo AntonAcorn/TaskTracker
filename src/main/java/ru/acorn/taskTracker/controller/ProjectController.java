@@ -1,16 +1,11 @@
 package ru.acorn.taskTracker.controller;
 
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.acorn.taskTracker.dto.ProjectDTO;
 import ru.acorn.taskTracker.entity.Project;
 import ru.acorn.taskTracker.service.ProjectService;
-
-import java.net.http.HttpResponse;
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/project")

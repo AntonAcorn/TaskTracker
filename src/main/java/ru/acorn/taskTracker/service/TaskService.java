@@ -2,9 +2,7 @@ package ru.acorn.taskTracker.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.acorn.taskTracker.dto.ProjectDTO;
 import ru.acorn.taskTracker.dto.TaskDTO;
-import ru.acorn.taskTracker.entity.Project;
 import ru.acorn.taskTracker.entity.Task;
 import ru.acorn.taskTracker.exception.ProjectNotFoundException;
 import ru.acorn.taskTracker.repository.TaskRepository;
