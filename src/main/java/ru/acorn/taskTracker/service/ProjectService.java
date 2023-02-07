@@ -31,17 +31,10 @@ public class ProjectService {
     }
 
     public ProjectDTO viewProject(Long id) {
-        Optional<Project> projectToBeFound = projectRepository.findById(id);
+        var projectToBeFound = projectRepository.findById(id);
         if (projectToBeFound.isPresent()) {
             var resultProject = projectToBeFound.get();
-            return ProjectDTO.builder()
-                    .name(resultProject.getName())
-                    .startTimeOfProject(LocalDateTime.now())
-                    .completionDate(resultProject.getCompletionDate())
-                    .status(resultProject.getStatus())
-                    .priority(resultProject.getPriority())
-                    .listOfTasks(resultProject.getListOfTasks())
-                    .build();
+            return modelMapperUtil.projectConvertToProjectDTO(resultProject);
         } else {
             throw new ProjectNotFoundException();
         }
