@@ -1,19 +1,20 @@
 package ru.acorn.taskTracker.service;
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.acorn.taskTracker.dto.TaskDTO;
 import ru.acorn.taskTracker.entity.Task;
-import ru.acorn.taskTracker.exception.ProjectNotFoundException;
+import ru.acorn.taskTracker.exception.AppEntityNotFoundException;
 import ru.acorn.taskTracker.repository.ProjectRepository;
 import ru.acorn.taskTracker.repository.TaskRepository;
 import ru.acorn.taskTracker.utils.ModelMapperUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
+@Log4j
 public class TaskService {
     private final TaskRepository taskRepository;
     private final ProjectRepository projectRepository;
@@ -38,7 +39,7 @@ public class TaskService {
             var resultTask = taskToBeFound.get();
             return modelMapperUtil.taskConvertToTaskDTO(resultTask);
         } else {
-            throw new ProjectNotFoundException();
+            throw new AppEntityNotFoundException();
         }
     }
 
@@ -62,7 +63,8 @@ public class TaskService {
             taskRepository.save(taskResult);
             return modelMapperUtil.taskConvertToTaskDTO(taskResult);
         }else{
-            throw new ProjectNotFoundException();
+            log.error("There is no such task");
+            throw new AppEntityNotFoundException();
         }
     }
 

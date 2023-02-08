@@ -1,18 +1,22 @@
 package ru.acorn.taskTracker.controller;
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.acorn.taskTracker.dto.ProjectDTO;
 import ru.acorn.taskTracker.entity.Project;
 import ru.acorn.taskTracker.entity.Task;
 import ru.acorn.taskTracker.service.ProjectService;
+import ru.acorn.taskTracker.utils.ErrorUtils;
 
-import java.time.LocalDateTime;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/project")
+@Log4j
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -23,7 +27,11 @@ public class ProjectController {
 
     @PostMapping
     @RequestMapping("/create")
-    public HttpEntity<?> createProject(@RequestBody Project project) {
+    public HttpEntity<?> createProject(@RequestBody @Valid Project project, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            log.error(bindingResult);
+            ErrorUtils.returnError(bindingResult);
+        }
         projectService.createProject(project);
         return ResponseEntity.ok().build();
     }

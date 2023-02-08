@@ -7,11 +7,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import ru.acorn.taskTracker.entity.enums.ProjectStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,21 +28,23 @@ public class Project implements Serializable {
     private Long id;
 
     @NotEmpty(message = "Name should not be empty")
-    private String name;
+    private String projectName;
 
     @CreationTimestamp
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime startTimeOfProject;
 
-    @NotNull
+    @NotNull(message = "Completion Date should not be empty")
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime completionDate;
 
-    @NotNull
+    @NotNull(message = "Project status should not be null")
     @Enumerated(EnumType.STRING)
     private ProjectStatus status;
 
-    @NotNull
+    @NotNull(message = "Priority should not be empty")
+    @Min(value = 1, message = "Priority should not be less then 1")
+    @Max(value = 10, message = "Priority should not be more then 10")
     private Integer priority;
 
     @JsonIgnore

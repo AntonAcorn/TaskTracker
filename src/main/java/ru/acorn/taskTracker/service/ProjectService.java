@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.acorn.taskTracker.dto.ProjectDTO;
 import ru.acorn.taskTracker.entity.Project;
 import ru.acorn.taskTracker.entity.Task;
-import ru.acorn.taskTracker.exception.ProjectNotFoundException;
+import ru.acorn.taskTracker.exception.AppEntityNotFoundException;
 import ru.acorn.taskTracker.repository.ProjectRepository;
 import ru.acorn.taskTracker.utils.ModelMapperUtil;
 
@@ -20,7 +20,8 @@ public class ProjectService {
     private final ModelMapperUtil modelMapperUtil;
 
     public ProjectService(ProjectRepository projectRepository,
-                          ModelMapperUtil modelMapperUtil) {
+                          ModelMapperUtil modelMapperUtil
+                          ) {
         this.projectRepository = projectRepository;
         this.modelMapperUtil = modelMapperUtil;
     }
@@ -36,18 +37,19 @@ public class ProjectService {
             var resultProject = projectToBeFound.get();
             return modelMapperUtil.projectConvertToProjectDTO(resultProject);
         } else {
-            throw new ProjectNotFoundException();
+            log.error("There is no such project");
+            throw new AppEntityNotFoundException();
         }
     }
 
     @Transactional
     public ProjectDTO editProject(Long id, ProjectDTO projectDTOToReturn) {
         var projectToBeFoundById = projectRepository.findById(id);
-        if (projectToBeFoundById.isPresent()){
+        if (projectToBeFoundById.isPresent()) {
             var projectResult = projectToBeFoundById.get();
             projectResult = Project.builder()
                     .id(projectResult.getId())
-                    .name(projectDTOToReturn.getName())
+                    .projectName(projectDTOToReturn.getProjectName())
                     .startTimeOfProject(projectResult.getStartTimeOfProject())
                     .completionDate(projectDTOToReturn.getCompletionDate())
                     .status(projectDTOToReturn.getStatus())
@@ -56,37 +58,38 @@ public class ProjectService {
                     .build();
             projectRepository.save(projectResult);
             return modelMapperUtil.projectConvertToProjectDTO(projectResult);
-        }else{
-            throw new ProjectNotFoundException();
+        } else {
+            log.error("There is no such project");
+            throw new AppEntityNotFoundException();
         }
     }
 
-    public List<Project> viewAllProjects(){
+    public List<Project> viewAllProjects() {
         return projectRepository.findAll();
     }
 
-    public List<Project> viewAllProjectsStartAt(String startAt){
-        return projectRepository.findAllByNameStartsWith(startAt);
+    public List<Project> viewAllProjectsStartAt(String startAt) {
+        return projectRepository.findAllByProjectNameStartsWith(startAt);
     }
 
-    public List<Project> viewAllProjectsEndWith(String endsWith){
-        return projectRepository.findAllByNameEndsWith(endsWith);
+    public List<Project> viewAllProjectsEndWith(String endsWith) {
+        return projectRepository.findAllByProjectNameEndsWith(endsWith);
     }
 
-    public List <Project> viewAllByOrderByPriority(){
+    public List<Project> viewAllByOrderByPriority() {
         return projectRepository.findAllByOrderByPriority();
     }
 
-    public List<Project> findAllByOrderByStartTimeOfProject(){
+    public List<Project> findAllByOrderByStartTimeOfProject() {
         return projectRepository.findAllByOrderByStartTimeOfProject();
     }
 
-    public List<Task> viewAllTasksOfProjectById(Long id){
-       return projectRepository.findById(id).map(Project::getListOfTasks).orElseThrow(ProjectNotFoundException::new);
+    public List<Task> viewAllTasksOfProjectById(Long id) {
+        return projectRepository.findById(id).map(Project::getListOfTasks).orElseThrow(AppEntityNotFoundException::new);
     }
 
     @Transactional
-    public void deleteProjectById(Long id){
+    public void deleteProjectById(Long id) {
         projectRepository.deleteById(id);
     }
 }
