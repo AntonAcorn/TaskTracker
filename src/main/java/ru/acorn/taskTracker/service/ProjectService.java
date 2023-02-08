@@ -20,7 +20,8 @@ public class ProjectService {
     private final ModelMapperUtil modelMapperUtil;
 
     public ProjectService(ProjectRepository projectRepository,
-                          ModelMapperUtil modelMapperUtil) {
+                          ModelMapperUtil modelMapperUtil
+                          ) {
         this.projectRepository = projectRepository;
         this.modelMapperUtil = modelMapperUtil;
     }
@@ -44,7 +45,7 @@ public class ProjectService {
     @Transactional
     public ProjectDTO editProject(Long id, ProjectDTO projectDTOToReturn) {
         var projectToBeFoundById = projectRepository.findById(id);
-        if (projectToBeFoundById.isPresent()){
+        if (projectToBeFoundById.isPresent()) {
             var projectResult = projectToBeFoundById.get();
             projectResult = Project.builder()
                     .id(projectResult.getId())
@@ -57,38 +58,38 @@ public class ProjectService {
                     .build();
             projectRepository.save(projectResult);
             return modelMapperUtil.projectConvertToProjectDTO(projectResult);
-        }else{
+        } else {
             log.error("There is no such project");
             throw new AppEntityNotFoundException();
         }
     }
 
-    public List<Project> viewAllProjects(){
+    public List<Project> viewAllProjects() {
         return projectRepository.findAll();
     }
 
-    public List<Project> viewAllProjectsStartAt(String startAt){
+    public List<Project> viewAllProjectsStartAt(String startAt) {
         return projectRepository.findAllByProjectNameStartsWith(startAt);
     }
 
-    public List<Project> viewAllProjectsEndWith(String endsWith){
+    public List<Project> viewAllProjectsEndWith(String endsWith) {
         return projectRepository.findAllByProjectNameEndsWith(endsWith);
     }
 
-    public List <Project> viewAllByOrderByPriority(){
+    public List<Project> viewAllByOrderByPriority() {
         return projectRepository.findAllByOrderByPriority();
     }
 
-    public List<Project> findAllByOrderByStartTimeOfProject(){
+    public List<Project> findAllByOrderByStartTimeOfProject() {
         return projectRepository.findAllByOrderByStartTimeOfProject();
     }
 
-    public List<Task> viewAllTasksOfProjectById(Long id){
-       return projectRepository.findById(id).map(Project::getListOfTasks).orElseThrow(AppEntityNotFoundException::new);
+    public List<Task> viewAllTasksOfProjectById(Long id) {
+        return projectRepository.findById(id).map(Project::getListOfTasks).orElseThrow(AppEntityNotFoundException::new);
     }
 
     @Transactional
-    public void deleteProjectById(Long id){
+    public void deleteProjectById(Long id) {
         projectRepository.deleteById(id);
     }
 }
