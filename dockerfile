@@ -6,4 +6,4 @@ ENV DB_PASSWORD=test
 
 COPY ${JAR_FILE} app.jar
 
-ENTRYPOINT ["java","-Dspring.datasource.username=12345", "-Dspring.datasource.password=12345", "-jar", "app.jar"]
+ENTRYPOINT ["java","-Dspring.datasource.username=test", "-Dspring.datasource.password=test", "-jar", "app.jar"]

@@ -17,14 +17,11 @@ import java.util.List;
 @Log4j
 public class TaskService {
     private final TaskRepository taskRepository;
-    private final ProjectRepository projectRepository;
     private final ModelMapperUtil modelMapperUtil;
 
     public TaskService(TaskRepository taskRepository,
-                       ProjectRepository projectRepository,
                        ModelMapperUtil modelMapperUtil) {
         this.taskRepository = taskRepository;
-        this.projectRepository = projectRepository;
         this.modelMapperUtil = modelMapperUtil;
     }
 
