@@ -13,7 +13,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,7 +28,7 @@ public class Project implements Serializable {
     private Long id;
 
     @NotEmpty(message = "Name should not be empty")
-    private String name;
+    private String projectName;
 
     @CreationTimestamp
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")

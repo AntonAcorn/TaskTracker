@@ -48,7 +48,7 @@ public class ProjectService {
             var projectResult = projectToBeFoundById.get();
             projectResult = Project.builder()
                     .id(projectResult.getId())
-                    .name(projectDTOToReturn.getName())
+                    .projectName(projectDTOToReturn.getProjectName())
                     .startTimeOfProject(projectResult.getStartTimeOfProject())
                     .completionDate(projectDTOToReturn.getCompletionDate())
                     .status(projectDTOToReturn.getStatus())
@@ -68,11 +68,11 @@ public class ProjectService {
     }
 
     public List<Project> viewAllProjectsStartAt(String startAt){
-        return projectRepository.findAllByNameStartsWith(startAt);
+        return projectRepository.findAllByProjectNameStartsWith(startAt);
     }
 
     public List<Project> viewAllProjectsEndWith(String endsWith){
-        return projectRepository.findAllByNameEndsWith(endsWith);
+        return projectRepository.findAllByProjectNameEndsWith(endsWith);
     }
 
     public List <Project> viewAllByOrderByPriority(){

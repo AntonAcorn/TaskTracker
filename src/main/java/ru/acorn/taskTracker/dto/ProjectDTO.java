@@ -4,16 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import ru.acorn.taskTracker.entity.Task;
 import ru.acorn.taskTracker.entity.enums.ProjectStatus;
 
-import javax.persistence.CascadeType;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ProjectDTO {
 
-    private String name;
+    private String projectName;
 
     private LocalDateTime startTimeOfProject;
 
