@@ -21,8 +21,27 @@ into the database (task tracker)
 * To stop application use stop.sh
 
 ## Endpoints
-To see endpoints run application and use http://localhost:7070/swagger-ui/index.html#/
+To see endpoints run application and use http://localhost:7070/swagger-ui/index.html#/  
 This is an Api documentation
+
+Example for creating of project json  
+{
+"projectName" : "Temp5",
+"completionDate" : "12-12-2023 15:53",
+"status" : "Active",
+"priority" : "1"  
+}
+
+Example for creating of task json  
+{  
+"taskName" : "Temp1",
+"taskStatus" : "ToDo",
+"priority" : "10",
+"taskDescription" : "Test description",
+"project" : {
+"id": 1
+}  
+}
 
 
 
