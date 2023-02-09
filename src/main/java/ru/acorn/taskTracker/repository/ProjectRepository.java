@@ -12,4 +12,5 @@ public interface ProjectRepository extends JpaRepository <Project, Long> {
     List<Project> findAllByProjectNameEndsWith(String endAt);
     List<Project> findAllByOrderByPriority();
     List<Project> findAllByOrderByStartTimeOfProject();
+
 }
