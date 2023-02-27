@@ -17,6 +17,7 @@ public class ErrorUtils {
                     .append(error.getDefaultMessage())
                     .append("; ");
         }
+
         throw new AppEntityNotFoundException(errorBuilder.toString());
     }
 }

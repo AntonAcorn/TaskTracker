@@ -66,7 +66,6 @@ class ProjectServiceTest {
                 .priority(10)
                 .build();
 
-
         Project project2 = Project.builder()
                 .id(2L)
                 .projectName("Temp2")
